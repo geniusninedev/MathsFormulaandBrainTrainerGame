@@ -52,8 +52,16 @@
 
         <activity android:name=".Login" />
         <activity android:name=".Formulas" />
-        <activity android:name=".formula.Home" />
-        <activity android:name=".formula.Geometry.Triangle"></activity>
+        <activity android:name=".formula.algebra.AlgebraHome" />
+        <activity android:name=".formula.trignometry.TrignometryHome" />
+        <activity android:name=".formula.analyticGeometry.AnalyticGeometryHome" />
+        <activity android:name=".formula.derivative.DerivativeHome" />
+        <activity android:name=".formula.equations.EquationsHome" />
+        <activity android:name=".formula.geometry.GeometryHome" />
+        <activity android:name=".formula.integration.IntegrationHome" />
+        <activity android:name=".formula.matrices.MatricesHome" />
+        <activity android:name=".formula.statistics.StatisticsHome" />
+        <activity android:name=".formula.unitConversion.UnitConversionHome"></activity>
     </application>
 
 </manifest>
