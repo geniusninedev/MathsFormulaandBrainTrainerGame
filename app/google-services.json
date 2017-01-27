@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "750852012498",
+    "firebase_url": "https://maths-formula-brain-trai-6906b.firebaseio.com",
+    "project_id": "maths-formula-brain-trai-6906b",
+    "storage_bucket": "maths-formula-brain-trai-6906b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750852012498:android:dc3cd9f04b5bf8b5",
+        "android_client_info": {
+          "package_name": "com.geniusnine.android.mathsformulaandbraintrainergame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750852012498-9uqao4b5rrm37cvq2vrun9jn1p2bqrr3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.geniusnine.android.mathsformulaandbraintrainergame",
+            "certificate_hash": "55F4BF89D0F70BA18D01EDE5814E5824D57779AA"
+          }
+        },
+        {
+          "client_id": "750852012498-14v1vkn0hd10dds5sor4igt4atduo84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ5UNDwr-GrXuoWlD-dDO5hBDpnCnm57M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750852012498-14v1vkn0hd10dds5sor4igt4atduo84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
