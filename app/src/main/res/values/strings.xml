@@ -1,12 +1,16 @@
 <resources>
-    <string name="app_name">Maths Formula and Brain Trainer Game</string>
+    <string name="app_name">Maths Formula...Game</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_profile">Profile</string>
+
     <string name="facebook_app_id">1438152459536683</string>
 
     <string name="fb_login_protocol_scheme">fb1438152459536683</string>
+    <string name="permission_contacts_rationale">Contacts permissions are needed to demonstrate access.</string>
+    <string name="ok">OK</string>
 
 </resources>
