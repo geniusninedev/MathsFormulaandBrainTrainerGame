@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
+import com.geniusnine.android.mathsformulaandbraintrainergame.Contacts.ContactView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
@@ -111,10 +112,12 @@ public class MainActivity extends AppCompatActivity
 
             Intent formula = new Intent(MainActivity.this, Formulas.class);
             startActivity(formula);
-            // Handle the camera action
+
         } else if (id == R.id.nav_brain_trainer) {
 
         } else if (id == R.id.nav_maths_tricks) {
+            Intent contact = new Intent(MainActivity.this, ContactView.class);
+            startActivity(contact);
 
         } else if (id == R.id.nav_manage) {
 

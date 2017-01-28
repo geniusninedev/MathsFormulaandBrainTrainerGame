@@ -61,7 +61,8 @@
         <activity android:name=".formula.integration.IntegrationHome" />
         <activity android:name=".formula.matrices.MatricesHome" />
         <activity android:name=".formula.statistics.StatisticsHome" />
-        <activity android:name=".formula.unitConversion.UnitConversionHome"></activity>
+        <activity android:name=".formula.unitConversion.UnitConversionHome" />
+        <activity android:name=".Contacts.ContactView"></activity>
     </application>
 
 </manifest>
