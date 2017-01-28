@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_brain_trainer) {
 
-            Intent contact = new Intent(MainActivity.this, FacebookProfile.class);
+            Intent contact = new Intent(MainActivity.this, FacebookProfile .class);
             startActivity(contact);
 
         } else if (id == R.id.nav_maths_tricks) {
