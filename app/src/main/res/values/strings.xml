@@ -10,5 +10,7 @@
     <string name="facebook_app_id">1438152459536683</string>
 
     <string name="fb_login_protocol_scheme">fb1438152459536683</string>
+    <string name="permission_contacts_rationale">Contacts permissions are needed to demonstrate access.</string>
+    <string name="ok">OK</string>
 
 </resources>

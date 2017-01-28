@@ -1,12 +1,17 @@
 package com.geniusnine.android.mathsformulaandbraintrainergame;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -28,6 +33,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import  android.Manifest;
 
 import org.json.JSONObject;
 
@@ -40,11 +46,16 @@ public class Login extends AppCompatActivity {
     private static final String TAG = "FacebookLogin";
     private User user;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListner;
+
     private DatabaseReference mDataBase;
     private DatabaseReference mDataBaseContacts;
+    private static final int REQUEST_CONTACTS = 1;
 
-    private String facebook_id,f_name, m_name, l_name, gender, profile_image, full_name, email_id;
+    private static String[] PERMISSIONS_CONTACT = {Manifest.permission.READ_CONTACTS,
+            Manifest.permission.WRITE_CONTACTS};
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +71,10 @@ public class Login extends AppCompatActivity {
 
         mLoginBtn.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends", "user_birthday", "user_location"));
 
-
+        CheckPermission();
         mLoginBtn.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
 
 
 
@@ -103,8 +113,9 @@ public class Login extends AppCompatActivity {
                 parameters.putString("fields", "id,name,email,gender, birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
-
                 handleFacebookAccessToken(loginResult.getAccessToken());
+
+
 
 
 
@@ -133,7 +144,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                //Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
 
 
                 if (!task.isSuccessful()) {
@@ -144,23 +155,14 @@ public class Login extends AppCompatActivity {
                 }
 
                 else {
-
-
-
-
-
-
-
-
-
-
-
+                    CreateNewUserInDatabase();
                     Intent loginIntent = new Intent(Login.this, MainActivity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
-                    Toast.makeText(Login.this, "User logged in.", Toast.LENGTH_LONG).show();
-                    CreateNewUserInDatabase();
                     finish();
+
+
+
                 }
             }
         });
@@ -188,7 +190,26 @@ public class Login extends AppCompatActivity {
 
 
 
+
     }
+
+
+    private void CheckPermission(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
+                 {
+
+            Log.i(TAG, "Contact permissions has NOT been granted. Requesting permissions.");
+            requestContactsPermissions();
+
+        } else {
+
+            // Contact permissions have been granted. Show the contacts fragment.
+            Log.i(TAG,
+                    "Contact permissions have already been granted. Displaying contact details.");
+
+        }
+    }
+
     protected void SyncContacts(){
 
         String user_id = mAuth.getCurrentUser().getUid();
@@ -210,5 +231,20 @@ public class Login extends AppCompatActivity {
 
 
         }
+    }
+
+
+    private void requestContactsPermissions() {
+        // BEGIN_INCLUDE(contacts_permission_request)
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS))
+                 {
+                            ActivityCompat.requestPermissions(Login.this, PERMISSIONS_CONTACT, REQUEST_CONTACTS);
+                            Log.i(TAG, "permission was asked");
+
+        } else {
+            // Contact permissions have not been granted yet. Request them directly.
+            ActivityCompat.requestPermissions(this, PERMISSIONS_CONTACT, REQUEST_CONTACTS);
+        }
+        // END_INCLUDE(contacts_permission_request)
     }
 }
