@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Regular Polygon</title>
+</head>
+
+<body>
+
+<p><p style="margin: 15px 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-weight: normal; font-stretch: inherit; font-size: 16px; line-height: 24px; font-family: &quot;Bookman Old Style&quot;, Georgia, &quot;Times New Roman&quot;; vertical-align: baseline; text-align: justify; color: rgb(51, 51, 51); letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"><strong>Regular Polygon:</strong><br />
+<br />
+A regular polygon is an n-sided polygon in which the sides are all the same 
+length and are symmetrically placed about a common center (i.e., the polygon is 
+both equiangular and equilateral). <br />
+<br />
+Only certain regular polygons are "constructible" using the classical Greek 
+tools of the compass and straightedge.<br />
+<br />
+The terms equilateral triangle and square refer to the regular 3- and 
+4-polygons, respectively. <br />
+<br />
+The words for polygons with n&gt;=5 sides (e.g., pentagon, hexagon, heptagon, etc.) 
+can refer to either regular or non-regular polygons, although the terms 
+generally refer to regular polygons in the absence of specific wording.<br />
+<br />
+A regular n-gon is implemented in the Wolfram Language as RegularPolygon[n], or 
+more generally as RegularPolygon[r, n], RegularPolygon[{x, y}, rspec, n], etc.<br />
+<br />
+The sum of perpendiculars from any point to the sides of a regular polygon of n 
+sides is n times the apothem.</p>
+<p><p style="margin: 15px 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-weight: normal; font-stretch: inherit; font-size: 16px; line-height: 24px; font-family: &quot;Bookman Old Style&quot;, Georgia, &quot;Times New Roman&quot;; vertical-align: baseline; text-align: justify; color: rgb(51, 51, 51); letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"><br />
+<img alt="PolygonInCircumscribe" src="regularpolugon1.gif" width="100%"/></p>
+<p><p style="margin: 15px 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-weight: normal; font-stretch: inherit; font-size: 16px; line-height: 24px; font-family: &quot;Bookman Old Style&quot;, Georgia, &quot;Times New Roman&quot;; vertical-align: baseline; text-align: justify; color: rgb(51, 51, 51); letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+<strong>PolygonInCircumscribe:</strong><br />
+<p style="margin: 15px 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-weight: normal; font-stretch: inherit; font-size: 16px; line-height: 24px; font-family: &quot;Bookman Old Style&quot;, Georgia, &quot;Times New Roman&quot;; vertical-align: baseline; text-align: justify; color: rgb(51, 51, 51); letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+Let a be the side length, r be the inradius, and R the circumradius of a regular 
+polygon. Then<br />
+<br />
+a = 2rtan(pi/n) <br />
+<br />
+&nbsp; = 2Rsin(pi/n) <br />
+<br />
+r&nbsp; = 1/2acot(pi/n) <br />
+<br />
+&nbsp; = Rcos(pi/n) <br />
+<br />
+R = 1/2acsc(pi/n) <br />
+<br />
+&nbsp; = rsec(pi/n) <br />
+<br />
+A = 1/4na^2cot(pi/n) <br />
+<br />
+&nbsp;&nbsp; = nr^2tan(pi/n) <br />
+<br />
+&nbsp;&nbsp; = 1/2nR^2sin((2pi)/n). <br />
+<br />
+The area moments of inertia about axes along an inradius and a circumradius of a 
+regular n-gon are given by<br />
+<br />
+Ir = 1/(24)A_n(6r_n^2-a^2) <br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp; = (a^4)/(192)n[cos((2pi)/n)+2]cos(pi/n)csc^2(pi/n)
+<br />
+<br />
+IR = 1/(48)A_n(12R_n^2+a^2) <br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp; = (a^4)/(192)ncot(pi/n)[3cos^2(pi/n)+1] <br />
+<br />
+If the number of sides is doubled, then<br />
+<br />
+a(2n) = sqrt(2R^2-Rsqrt(4R^2-a_n^2)) <br />
+<br />
+A(2n) = (4rA_n)/(2r+sqrt(4r^2+a_n^2)). <br />
+<br />
+The area of the first few regular n-gon with unit edge lengths are<br />
+<br />
+A3 = 1/4sqrt(3) <br />
+<br />
+A4 = 1 <br />
+<br />
+A5 = 1/4sqrt(5(5+2sqrt(5))) <br />
+<br />
+A6 = 3/2sqrt(3) <br />
+<br />
+A7 = (4096x^6-62720x^4+115248x^2-16807)_6 <br />
+<br />
+A8 = 2(1+sqrt(2)) <br />
+<br />
+A9 = (4096x^6-186624x^4+1154736x^2-177147)_6 <br />
+<br />
+A(10) = 5/2sqrt(5+2sqrt(5)). <br />
+<br />
+The algebraic degrees of these for n=3, 4, ... are 2, 1, 4, 2, 6, 2, 6, 4, 10, 
+2, 12, 6, 8, 4, 16, 6, 18, 4, ...<br />
+<p style="margin: 15px 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-weight: normal; font-stretch: inherit; font-size: 16px; line-height: 24px; font-family: &quot;Bookman Old Style&quot;, Georgia, &quot;Times New Roman&quot;; vertical-align: baseline; text-align: justify; color: rgb(51, 51, 51); letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+<strong>RegularPolygonAreas:</strong><br />
+<p style="margin: 15px 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-weight: normal; font-stretch: inherit; font-size: 16px; line-height: 24px; font-family: &quot;Bookman Old Style&quot;, Georgia, &quot;Times New Roman&quot;; vertical-align: baseline; text-align: justify; color: rgb(51, 51, 51); letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+The plot above shows how the areas of the regular n-gons with unit inradius 
+(blue) and unit circumradius (red) approach that of a unit disk (i.e., pi).<br />
+<br />
+If p_k and P_k are the perimeters of the regular polygons inscribed in and 
+circumscribed around a given circle and a_k and A_k their areas, then<br />
+<br />
+P_(2n) = (2p_nP_n)/(p_n+P_n) <br />
+<br />
+p(2n) = sqrt(p_nP_(2n)), <br />
+<br />
+and<br />
+<br />
+a(2n) = sqrt(a_nA_n) <br />
+<br />
+A(2n) = (2a_(2n)A_n)/(a_(2n)+A_n) <br />
+<br />
+The sum of interior angles in any n-gon is given by (n-2)pi radians, or 
+2(n-2)×90 degrees.</p>
+
+</body>
+
+</html>

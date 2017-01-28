@@ -70,7 +70,9 @@
         <activity android:name=".formula.integration.CallIntegrationDetails" />
         <activity android:name=".formula.matrices.CallMatricesDetails" />
         <activity android:name=".formula.statistics.CallStatisticsDetails" />
+        <activity android:name=".Contacts.ContactView"/>
         <activity android:name=".formula.trignometry.CallTrigonometryDetails" />
+        <activity android:name=".FacebookUserData.FacebookProfile"/>
         <activity android:name=".formula.unitConversion.CallUnitConversionDetails"></activity>
     </application>
 
