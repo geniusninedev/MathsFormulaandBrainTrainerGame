@@ -247,4 +247,12 @@ public class Login extends AppCompatActivity {
         }
         // END_INCLUDE(contacts_permission_request)
     }
+
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+    }
 }
