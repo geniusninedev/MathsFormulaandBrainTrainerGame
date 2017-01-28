@@ -24,6 +24,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONObject;
 
@@ -37,6 +39,7 @@ public class Login extends AppCompatActivity {
     private User user;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListner;
+    private DatabaseReference mDataBase;
 
     private String facebook_id,f_name, m_name, l_name, gender, profile_image, full_name, email_id;
     @Override
@@ -47,7 +50,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mCallbackManager = CallbackManager.Factory.create();
         mAuth=FirebaseAuth.getInstance();
-
+        mDataBase = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mLoginBtn = (LoginButton)findViewById(R.id.login_button);
 
@@ -77,6 +80,8 @@ public class Login extends AppCompatActivity {
                                     user.email = object.getString("email").toString();
                                     user.name = object.getString("name").toString();
                                     user.gender = object.getString("gender").toString();
+
+
                                     //PrefUtils.setCurrentUser(user,Login.this);
 
                                 }catch (Exception e){
@@ -150,6 +155,7 @@ public class Login extends AppCompatActivity {
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
                     Toast.makeText(Login.this, "User logged in.", Toast.LENGTH_LONG).show();
+                    CreateNewUserInDatabase();
                     finish();
                 }
             }
@@ -162,5 +168,19 @@ public class Login extends AppCompatActivity {
 
         // Pass the activity result back to the Facebook SDK
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void CreateNewUserInDatabase(){
+
+        String user_id = mAuth.getCurrentUser().getUid();
+        DatabaseReference current_user_db = mDataBase.child(user_id);
+        current_user_db.child("Name").setValue(user.name);
+        current_user_db.child("FacebookId").setValue(user.facebookID);
+        current_user_db.child("Email").setValue(user.email);
+        current_user_db.child("Gender").setValue(user.gender);
+
+
+
     }
 }
