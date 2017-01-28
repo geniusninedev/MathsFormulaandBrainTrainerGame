@@ -62,7 +62,8 @@
         <activity android:name=".formula.matrices.MatricesHome" />
         <activity android:name=".formula.statistics.StatisticsHome" />
         <activity android:name=".formula.unitConversion.UnitConversionHome" />
-        <activity android:name=".Contacts.ContactView"></activity>
+        <activity android:name=".Contacts.ContactView" />
+        <activity android:name=".FacebookUserData.FacebookProfile"></activity>
     </application>
 
 </manifest>
