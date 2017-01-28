@@ -25,7 +25,7 @@ public class Formulas extends AppCompatActivity {
     ListView formulaListView;
     ArrayAdapter<String> adapter;
     String formulaList[]={"Geometry","Algebra","Trigonometry","Equations","Analytic geometry","Derivative",
-            "Integration","Matrices","Statistics","Units Conversion"};
+                          "Integration","Matrices","Statistics","Units Conversion"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

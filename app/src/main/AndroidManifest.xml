@@ -61,7 +61,17 @@
         <activity android:name=".formula.integration.IntegrationHome" />
         <activity android:name=".formula.matrices.MatricesHome" />
         <activity android:name=".formula.statistics.StatisticsHome" />
-        <activity android:name=".formula.unitConversion.UnitConversionHome"></activity>
+        <activity android:name=".formula.unitConversion.UnitConversionHome" />
+        <activity android:name=".formula.geometry.CallGeometryDetails" />
+        <activity android:name=".formula.algebra.CallAlgebraDetails" />
+        <activity android:name=".formula.analyticGeometry.CallAnalyticGeometryDetails" />
+        <activity android:name=".formula.derivative.CallDerivativeDetails" />
+        <activity android:name=".formula.equations.CallEquationsDetails" />
+        <activity android:name=".formula.integration.CallIntegrationDetails" />
+        <activity android:name=".formula.matrices.CallMatricesDetails" />
+        <activity android:name=".formula.statistics.CallStatisticsDetails" />
+        <activity android:name=".formula.trignometry.CallTrigonometryDetails" />
+        <activity android:name=".formula.unitConversion.CallUnitConversionDetails"></activity>
     </application>
 
 </manifest>
