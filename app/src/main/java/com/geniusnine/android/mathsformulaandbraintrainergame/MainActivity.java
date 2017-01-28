@@ -1,7 +1,9 @@
 package com.geniusnine.android.mathsformulaandbraintrainergame;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -11,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,14 +22,18 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.geniusnine.android.mathsformulaandbraintrainergame.Contacts.ContactView;
+import com.geniusnine.android.mathsformulaandbraintrainergame.Contacts.contact;
 import com.geniusnine.android.mathsformulaandbraintrainergame.FacebookUserData.FacebookProfile;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListner;
+    private DatabaseReference mDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,7 @@ public class MainActivity extends AppCompatActivity
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
+        mDataBase = FirebaseDatabase.getInstance().getReference().child("Contacts");
 
         mAuthListner = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -69,6 +77,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //SyncContacts();
     }
 
     @Override
@@ -96,10 +105,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
             LoginManager.getInstance().logOut();
         }
+        if (id == R.id.action_profile) {
+            Intent contact = new Intent(MainActivity.this, FacebookProfile.class);
+            startActivity(contact);
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -120,8 +134,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_brain_trainer) {
 
-            Intent contact = new Intent(MainActivity.this, FacebookProfile .class);
-            startActivity(contact);
+
 
         } else if (id == R.id.nav_maths_tricks) {
             Intent contact = new Intent(MainActivity.this, ContactView.class);
@@ -145,5 +158,29 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
 
         mAuth.addAuthStateListener(mAuthListner);
+    }
+
+
+    protected void SyncContacts(){
+
+        String user_id = mAuth.getCurrentUser().getUid();
+        DatabaseReference current_user_db = mDataBase.child(user_id);
+
+
+        Cursor phone=getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
+
+        while(phone.moveToNext()){
+            String name;
+            String number;
+
+            name=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            number=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+            current_user_db.child(name).setValue(number);
+
+
+
+
+        }
     }
 }

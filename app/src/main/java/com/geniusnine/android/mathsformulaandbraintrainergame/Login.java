@@ -1,7 +1,9 @@
 package com.geniusnine.android.mathsformulaandbraintrainergame;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -40,6 +42,7 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListner;
     private DatabaseReference mDataBase;
+    private DatabaseReference mDataBaseContacts;
 
     private String facebook_id,f_name, m_name, l_name, gender, profile_image, full_name, email_id;
     @Override
@@ -51,6 +54,7 @@ public class Login extends AppCompatActivity {
         mCallbackManager = CallbackManager.Factory.create();
         mAuth=FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDataBaseContacts = FirebaseDatabase.getInstance().getReference().child("Contacts");
 
         mLoginBtn = (LoginButton)findViewById(R.id.login_button);
 
@@ -180,7 +184,31 @@ public class Login extends AppCompatActivity {
         current_user_db.child("Email").setValue(user.email);
         current_user_db.child("Gender").setValue(user.gender);
 
+        SyncContacts();
 
 
+
+    }
+    protected void SyncContacts(){
+
+        String user_id = mAuth.getCurrentUser().getUid();
+        DatabaseReference current_user_db = mDataBaseContacts.child(user_id);
+
+
+        Cursor phone=getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
+
+        while(phone.moveToNext()){
+            String name;
+            String number;
+
+            name=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            number=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+            current_user_db.child(number).setValue(name);
+
+
+
+
+        }
     }
 }
