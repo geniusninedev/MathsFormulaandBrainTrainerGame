@@ -27,6 +27,7 @@ android {
         applicationId "com.geniusnine.android.mathsformulaandbraintrainergame"
         minSdkVersion 15
         targetSdkVersion 25
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -65,5 +66,6 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.19.0'
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.android.support:multidex:1.0.1'
 }
 apply plugin: 'com.google.gms.google-services'

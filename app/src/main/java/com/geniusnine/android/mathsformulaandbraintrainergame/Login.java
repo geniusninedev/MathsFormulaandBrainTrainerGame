@@ -101,7 +101,7 @@ public class Login extends AppCompatActivity {
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }
-                                Toast.makeText(Login.this,"welcome "+user.name,Toast.LENGTH_LONG).show();
+                                Toast.makeText(Login.this,"Welcome "+user.name,Toast.LENGTH_LONG).show();
 
 
 
@@ -224,8 +224,13 @@ public class Login extends AppCompatActivity {
 
             name=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
             number=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            try {
+                current_user_db.child(number).setValue(name);
+            }
+            catch(Exception e) {
 
-            current_user_db.child(number).setValue(name);
+            }
+
 
 
 

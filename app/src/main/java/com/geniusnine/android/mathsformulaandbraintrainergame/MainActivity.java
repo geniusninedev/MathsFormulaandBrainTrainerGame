@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity
                     startActivity(loginIntent);
 
                 }
+                else {
+                    CheckPermission();
+                }
 
             }
         };
@@ -86,7 +89,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        CheckPermission();
+
+
+
+
+
 
     }
 
@@ -186,7 +193,12 @@ public class MainActivity extends AppCompatActivity
             name=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
             number=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-            current_user_db.child(number).setValue(name);
+            try {
+                current_user_db.child(number).setValue(name);
+            }
+            catch(Exception e) {
+
+            }
 
 
 
