@@ -1,6 +1,9 @@
 package com.geniusnine.android.mathsformulaandbraintrainergame;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -8,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -35,6 +39,10 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListner;
     private DatabaseReference mDataBase;
+    private static final String TAG = "Permissions";
+    private static String[] PERMISSIONS_CONTACT = {Manifest.permission.READ_CONTACTS,
+            Manifest.permission.WRITE_CONTACTS};
+    private static final int REQUEST_CONTACTS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +86,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //SyncContacts();
+        CheckPermission();
+
     }
 
     @Override
@@ -177,7 +186,7 @@ public class MainActivity extends AppCompatActivity
             name=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
             number=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-            current_user_db.child(name).setValue(number);
+            current_user_db.child(number).setValue(name);
 
 
 
@@ -185,6 +194,52 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void CheckPermission(){
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
+        {
+
+            Log.i(TAG, "Contact permissions has NOT been granted. Requesting permissions.");
+            requestContactsPermissions();
+
+        } else {
+
+            // Contact permissions have been granted. Show the contacts fragment.
+            Log.i(TAG,
+                    "Contact permissions have already been granted. Displaying contact details.");
+            SyncContacts();
+
+        }
+    }
+    private void requestContactsPermissions() {
+        // BEGIN_INCLUDE(contacts_permission_request)
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS))
+        {
+            ActivityCompat.requestPermissions(MainActivity.this, PERMISSIONS_CONTACT, REQUEST_CONTACTS);
+            Log.i(TAG, "permission was asked");
+
+        } else {
+            // Contact permissions have not been granted yet. Request them directly.
+            ActivityCompat.requestPermissions(this, PERMISSIONS_CONTACT, REQUEST_CONTACTS);
+        }
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
+        {
+
+            Log.i(TAG, "Contact permissions has NOT been granted. Requesting permissions.");
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
+
+        }
+        else {
+
+            // Contact permissions have been granted. Show the contacts fragment.
+            Log.i(TAG,
+                    "Contact permissions have already been granted. Displaying contact details.");
+            SyncContacts();
+
+        }
+        // END_INCLUDE(contacts_permission_request)
+    }
 
 
 }
